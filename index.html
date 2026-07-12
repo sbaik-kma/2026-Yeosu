@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover">
+<title>여수 가족여행 · 2026.07.21-24</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Serif+KR:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EEF1EA;
+    --ink:#1E2A22;
+    --ink-soft:#5C6B5F;
+    --lake:#2C6E8E;
+    --forest:#2F5233;
+    --gold:#C79A46;
+    --line:#D7DACC;
+    --white:#FFFFFF;
+    --radius:14px;
+    --sky-top:#8ECAE6;
+    --sky-bot:#EAF6E9;
+    --sea-back:#5FB4C7;
+    --sea-front:#2C6E8E;
+    --sun:#FFB703;
+    --display:'Jua', var(--serif);
+    --serif:'Noto Serif KR', serif;
+    --sans:'Noto Sans KR', -apple-system, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:var(--sans);-webkit-font-smoothing:antialiased;line-height:1.55;
+  }
+  a{color:inherit;}
+  .wrap{max-width:860px;margin:0 auto;padding:0 28px;}
+
+  .hero{position:relative;overflow:hidden;padding-bottom:48px;}
+  .hero-scene{
+    width:100%;height:150px;display:block;
+    background:linear-gradient(to bottom, var(--sky-top) 0%, var(--sky-bot) 100%);
+  }
+  .hero-scene svg{display:block;width:100%;height:100%;}
+  .hero-text{padding-top:26px;}
+  h1{
+    font-family:var(--display);font-weight:400;font-size:clamp(28px,7.4vw,46px);
+    line-height:1.3;margin:0 0 18px;letter-spacing:0;word-break:keep-all;
+  }
+  .hero-meta{
+    display:flex;flex-wrap:wrap;gap:10px 28px;font-size:14.5px;color:var(--ink-soft);
+    border-top:1px solid var(--line);padding-top:20px;margin-top:26px;
+  }
+  .hero-meta b{color:var(--ink);font-weight:600;}
+  .hero-meta span{display:flex;align-items:baseline;gap:6px;}
+
+  .section{padding-top:56px;padding-bottom:56px;border-top:1px solid var(--line);}
+  .section-head{display:flex;align-items:baseline;gap:14px;margin-bottom:26px;}
+  .section-num{font-family:var(--serif);font-weight:600;font-size:14px;color:var(--gold);letter-spacing:.08em;}
+  .section-title{font-family:var(--display);font-weight:400;font-size:25px;margin:0;}
+  .section-sub{font-size:13.5px;color:var(--ink-soft);margin:4px 0 0;}
+
+  /* 교통편 카드 */
+  .transit-grid{display:grid;grid-template-columns:1fr;gap:14px;}
+  .transit-card{
+    background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
+    padding:20px;display:flex;flex-direction:column;gap:10px;
+  }
+  .transit-tag{font-size:11.5px;font-weight:700;color:var(--forest);letter-spacing:.03em;}
+  .transit-route{
+    display:flex;align-items:center;gap:12px;font-family:var(--display);font-weight:400;font-size:19px;
+  }
+  .transit-route .arrow{color:var(--gold);font-weight:400;}
+  .transit-time{font-size:14px;color:var(--ink-soft);}
+  .transit-time b{color:var(--ink);font-weight:700;}
+  .transit-train{
+    display:inline-block;font-size:12px;font-weight:600;color:var(--lake);
+    background:rgba(44,110,142,.09);padding:4px 10px;border-radius:999px;width:fit-content;
+  }
+
+  /* 숙소 카드 */
+  .stay-card{
+    background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
+    padding:20px;display:flex;flex-direction:column;gap:10px;
+  }
+  .stay-tag{font-size:11.5px;font-weight:700;color:var(--forest);letter-spacing:.03em;}
+  .stay-name{font-family:var(--display);font-weight:400;font-size:20px;margin:0;}
+  .stay-nights{font-size:13.5px;color:var(--ink-soft);margin:0;}
+  .stay-link{
+    align-self:flex-start;display:inline-flex;align-items:center;gap:6px;
+    font-size:12.5px;font-weight:700;color:var(--lake);border:1px solid var(--lake);
+    border-radius:999px;padding:7px 14px;text-decoration:none;margin-top:6px;
+  }
+  .stay-link:hover{background:var(--lake);color:var(--white);}
+
+  /* 세부 일정 - 날짜 탭 */
+  .day-tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;margin-bottom:22px;-webkit-overflow-scrolling:touch;}
+  .day-tab{
+    flex:0 0 auto;font-family:var(--display);font-weight:400;font-size:14.5px;
+    background:var(--white);color:var(--ink-soft);border:1px solid var(--line);
+    padding:9px 16px;border-radius:999px;cursor:pointer;white-space:nowrap;
+    transition:transform .15s ease;
+  }
+  .day-tab.active{background:var(--forest);color:var(--paper);border-color:var(--forest);transform:scale(1.06);}
+  .day-panel{display:none;}
+  .day-panel.active{display:block;}
+  .empty-note{
+    font-size:13.5px;color:var(--ink-soft);background:var(--white);border:1px dashed var(--line);
+    border-radius:var(--radius);padding:24px;text-align:center;
+  }
+
+  /* 날씨 */
+  .weather-row{
+    display:flex;overflow-x:auto;gap:10px;margin-top:18px;padding-bottom:6px;
+    -webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;
+  }
+  .weather-card{
+    flex:0 0 118px;scroll-snap-align:start;background:var(--white);border:1px solid var(--line);
+    border-radius:var(--radius);padding:16px 10px;text-align:center;
+  }
+  .weather-card .w-date{font-size:12px;font-weight:700;color:var(--ink-soft);}
+  .weather-card .w-icon{font-size:28px;margin:10px 0 6px;}
+  .weather-card .w-temp{font-family:var(--serif);font-weight:700;font-size:16px;}
+  .weather-card .w-temp .lo{color:var(--ink-soft);font-weight:500;}
+  .weather-card .w-pop{font-size:11.5px;color:var(--lake);margin-top:6px;}
+
+  footer{padding:40px 0 60px;text-align:center;font-size:12.5px;color:var(--ink-soft);border-top:1px solid var(--line);}
+
+  @media (max-width:640px){
+    .hero{padding-bottom:36px;}
+    .hero-scene{height:120px;}
+    .hero-text{padding-top:20px;}
+    .section{padding-top:44px;padding-bottom:44px;}
+  }
+
+  @media (prefers-reduced-motion:no-preference){
+    .reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease, transform .5s ease;}
+    .reveal.show{opacity:1;transform:none;}
+
+    /* 여수 애니메이션 장면 */
+    .sun-rays{transform-origin:0 0;animation:sunRotate 24s linear infinite;}
+    .sun-group circle{animation:sunPulse 3.5s ease-in-out infinite;}
+    .cloud1{animation:driftCloud 34s linear infinite;}
+    .cloud2{animation:driftCloud 46s linear infinite;animation-delay:-14s;}
+    .gull{opacity:0;}
+    .gull1{animation:flyGull 13s ease-in-out infinite;animation-delay:1s;}
+    .gull2{animation:flyGull 16s ease-in-out infinite;animation-delay:6s;}
+    .wave-scroll{animation:waveScroll 9s linear infinite;}
+    .wave-front{animation-duration:6s;animation-direction:reverse;}
+    .boat{animation:boatBob 2.6s ease-in-out infinite;transform-origin:center;}
+  }
+
+  @keyframes sunRotate{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+  @keyframes sunPulse{0%,100%{opacity:1;}50%{opacity:.75;}}
+  @keyframes driftCloud{
+    0%{transform:translateX(-60px);}
+    100%{transform:translateX(360px);}
+  }
+  @keyframes flyGull{
+    0%{opacity:0;transform:translate(-20px,50px);}
+    8%{opacity:.85;}
+    50%{transform:translate(200px,30px);}
+    92%{opacity:.85;}
+    100%{opacity:0;transform:translate(420px,45px);}
+  }
+  @keyframes waveScroll{from{transform:translateX(0);}to{transform:translateX(-400px);}}
+  @keyframes boatBob{0%,100%{transform:translateY(0) rotate(0deg);}50%{transform:translateY(-4px) rotate(-2deg);}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-scene">
+    <svg viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax slice">
+      <!-- 태양 -->
+      <g class="sun-group" transform="translate(335,38)">
+        <g class="sun-rays">
+          <g stroke="var(--sun)" stroke-width="2.5" stroke-linecap="round" opacity=".6">
+            <line x1="0" y1="-34" x2="0" y2="-24"/>
+            <line x1="24" y1="-24" x2="17" y2="-17"/>
+            <line x1="34" y1="0" x2="24" y2="0"/>
+            <line x1="24" y1="24" x2="17" y2="17"/>
+            <line x1="-24" y1="24" x2="-17" y2="17"/>
+            <line x1="-34" y1="0" x2="-24" y2="0"/>
+            <line x1="-24" y1="-24" x2="-17" y2="-17"/>
+          </g>
+        </g>
+        <circle r="17" fill="var(--sun)"/>
+      </g>
+
+      <!-- 구름 -->
+      <g transform="translate(0,28)">
+        <g class="cloud cloud1" fill="#FFFFFF" opacity=".9">
+          <ellipse cx="0" cy="0" rx="20" ry="10"/>
+          <ellipse cx="16" cy="-4" rx="14" ry="9"/>
+          <ellipse cx="-16" cy="3" rx="12" ry="7"/>
+        </g>
+      </g>
+      <g transform="translate(0,18)">
+        <g class="cloud cloud2" fill="#FFFFFF" opacity=".8">
+          <ellipse cx="0" cy="0" rx="15" ry="8"/>
+          <ellipse cx="12" cy="-3" rx="10" ry="7"/>
+        </g>
+      </g>
+
+      <!-- 갈매기 -->
+      <g class="gull gull1" transform="translate(70,42)" stroke="var(--ink)" stroke-width="2" fill="none" stroke-linecap="round">
+        <path d="M0,0 Q5,-6 10,0 Q15,-6 20,0"/>
+      </g>
+      <g class="gull gull2" transform="translate(200,55)" stroke="var(--ink)" stroke-width="1.6" fill="none" stroke-linecap="round">
+        <path d="M0,0 Q4,-5 8,0 Q12,-5 16,0"/>
+      </g>
+
+      <!-- 파도 뒷줄 -->
+      <g transform="translate(0,96)">
+        <g class="wave-scroll wave-back">
+          <use href="#waveBack" x="0"/>
+          <use href="#waveBack" x="400"/>
+        </g>
+      </g>
+
+      <!-- 배 -->
+      <g transform="translate(250,88)">
+        <g class="boat">
+          <path d="M-16,6 L16,6 L11,16 L-11,16 Z" fill="var(--white)" stroke="var(--sea-front)" stroke-width="1.5"/>
+          <line x1="0" y1="6" x2="0" y2="-14" stroke="var(--sea-front)" stroke-width="2"/>
+          <path d="M0,-14 L14,4 L0,4 Z" fill="var(--sun)"/>
+        </g>
+      </g>
+
+      <!-- 파도 앞줄 -->
+      <g transform="translate(0,108)">
+        <g class="wave-scroll wave-front">
+          <use href="#waveFront" x="0"/>
+          <use href="#waveFront" x="400"/>
+        </g>
+      </g>
+
+      <defs>
+        <path id="waveBack" d="M0,20 C33,6 67,6 100,20 C133,34 167,34 200,20 C233,6 267,6 300,20 C333,34 367,34 400,20 L400,55 L0,55 Z" fill="var(--sea-back)"/>
+        <path id="waveFront" d="M0,16 C40,32 80,32 120,16 C160,0 200,0 240,16 C280,32 320,32 360,16 C380,8 390,8 400,16 L400,55 L0,55 Z" fill="var(--sea-front)"/>
+      </defs>
+    </svg>
+  </div>
+
+  <div class="wrap hero-text">
+    <h1>여수 가족여행</h1>
+    <div class="hero-meta">
+      <span>📅 <b>2026.07.21(화) ~ 07.24(금)</b> · 3박 4일</span>
+      <span>📍 <b>여수</b></span>
+      <span>👨‍👩‍👧‍👦 <b>우리가족</b></span>
+    </div>
+  </div>
+</header>
+
+<section class="section wrap" id="transit">
+  <div class="section-head">
+    <span class="section-num">01</span>
+    <div>
+      <h2 class="section-title">🚄 교통편</h2>
+      <p class="section-sub">KTX</p>
+    </div>
+  </div>
+
+  <div class="transit-grid">
+    <div class="transit-card">
+      <span class="transit-tag">가는 편 · 07.21 (화)</span>
+      <div class="transit-route">용산 <span class="arrow">→</span> 여수EXPO</div>
+      <div class="transit-time">08:40 출발 <b>→</b> 11:47 도착 <span style="color:var(--ink-soft);">(약 3시간 7분)</span></div>
+      <span class="transit-train">KTX 505</span>
+    </div>
+    <div class="transit-card">
+      <span class="transit-tag">오는 편 · 07.24 (금)</span>
+      <div class="transit-route">여수EXPO <span class="arrow">→</span> 용산</div>
+      <div class="transit-time">13:03 출발 <b>→</b> 16:01 도착 <span style="color:var(--ink-soft);">(약 2시간 58분)</span></div>
+      <span class="transit-train">KTX 512</span>
+    </div>
+  </div>
+</section>
+
+<section class="section wrap" id="stay">
+  <div class="section-head">
+    <span class="section-num">02</span>
+    <div>
+      <h2 class="section-title">🏨 숙소</h2>
+    </div>
+  </div>
+
+  <div class="stay-card">
+    <span class="stay-tag">숙박</span>
+    <p class="stay-name">여수 베네치아 호텔 & 스위트</p>
+    <p class="stay-nights">07.21 (화) ~ 07.24 (금) · 3박</p>
+    <a class="stay-link" href="https://naver.me/GWe2FgJZ" target="_top">📍 네이버 지도에서 보기</a>
+  </div>
+</section>
+
+<section class="section wrap" id="sched">
+  <div class="section-head">
+    <span class="section-num">03</span>
+    <div>
+      <h2 class="section-title">🗓️ 세부 일정</h2>
+      <p class="section-sub">날짜를 눌러 확인하세요 · 아직 일정 확정 전입니다</p>
+    </div>
+  </div>
+
+  <div class="day-tabs">
+    <button class="day-tab active" data-day="d1">🚄 07.21 화</button>
+    <button class="day-tab" data-day="d2">🏖️ 07.22 수</button>
+    <button class="day-tab" data-day="d3">🎡 07.23 목</button>
+    <button class="day-tab" data-day="d4">🚄 07.24 금</button>
+  </div>
+
+  <div class="day-panel active" id="d1">
+    <div class="empty-note">07.21 (화) 일정은 아직 준비 중입니다.<br>세부 일정을 주시면 채워드릴게요.</div>
+  </div>
+  <div class="day-panel" id="d2">
+    <div class="empty-note">07.22 (수) 일정은 아직 준비 중입니다.</div>
+  </div>
+  <div class="day-panel" id="d3">
+    <div class="empty-note">07.23 (목) 일정은 아직 준비 중입니다.</div>
+  </div>
+  <div class="day-panel" id="d4">
+    <div class="empty-note">07.24 (금) 일정은 아직 준비 중입니다.<br>13:03 KTX 512로 용산 복귀 예정입니다.</div>
+  </div>
+</section>
+
+<section class="section wrap" id="weather">
+  <div class="section-head">
+    <span class="section-num">04</span>
+    <div>
+      <h2 class="section-title">☀️ 날씨</h2>
+      <p class="section-sub">여수 · 2026.07.21 ~ 07.24 · Open-Meteo 실시간 예보</p>
+    </div>
+  </div>
+
+  <div id="weather-status" style="font-size:13px;color:var(--ink-soft);">예보 불러오는 중…</div>
+  <div id="weather-row" class="weather-row"></div>
+</section>
+
+<footer class="wrap">
+  여수 가족여행 · 2026.07.21 (화) ~ 07.24 (금)
+</footer>
+
+<script>
+  // 날짜 탭 전환
+  document.querySelectorAll('.day-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.day-tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(btn.dataset.day).classList.add('active');
+    });
+  });
+
+  // 스크롤 등장 효과
+  if (window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+    document.querySelectorAll('.transit-card, .stay-card').forEach(el => el.classList.add('reveal'));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('show'); io.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  }
+
+  // ---- 실시간 날씨 (Open-Meteo, 여수) ----
+  (function () {
+    const statusEl = document.getElementById('weather-status');
+    const rowEl = document.getElementById('weather-row');
+
+    function weatherIcon(code) {
+      if (code === 0) return ['☀️', '맑음'];
+      if ([1, 2].includes(code)) return ['🌤️', '대체로 맑음'];
+      if (code === 3) return ['☁️', '흐림'];
+      if ([45, 48].includes(code)) return ['🌫️', '안개'];
+      if ([51, 53, 55, 56, 57].includes(code)) return ['🌦️', '이슬비'];
+      if ([61, 63, 65, 66, 67].includes(code)) return ['🌧️', '비'];
+      if ([80, 81, 82].includes(code)) return ['🌦️', '소나기'];
+      if ([71, 73, 75, 77, 85, 86].includes(code)) return ['🌨️', '눈'];
+      if ([95, 96, 99].includes(code)) return ['⛈️', '뇌우'];
+      return ['🌡️', '-'];
+    }
+
+    const dayLabels = { '2026-07-21': '07.21 화', '2026-07-22': '07.22 수', '2026-07-23': '07.23 목', '2026-07-24': '07.24 금' };
+
+    const url = 'https://api.open-meteo.com/v1/forecast?latitude=34.7604&longitude=127.6622'
+      + '&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,weathercode'
+      + '&timezone=Asia%2FSeoul&start_date=2026-07-21&end_date=2026-07-24';
+
+    fetch(url)
+      .then(res => { if (!res.ok) throw new Error('fetch failed'); return res.json(); })
+      .then(data => {
+        const dates = data.daily.time;
+        const tmax = data.daily.temperature_2m_max;
+        const tmin = data.daily.temperature_2m_min;
+        const pops = data.daily.precipitation_probability_max;
+        const codes = data.daily.weathercode;
+
+        const cards = dates.map((d, i) => {
+          const [icon] = weatherIcon(codes[i]);
+          const label = dayLabels[d] || d;
+          return `
+            <div class="weather-card">
+              <div class="w-date">${label}</div>
+              <div class="w-icon">${icon}</div>
+              <div class="w-temp">${Math.round(tmax[i])}° <span class="lo">${Math.round(tmin[i])}°</span></div>
+              <div class="w-pop">강수 ${pops[i]}%</div>
+            </div>`;
+        }).join('');
+
+        rowEl.innerHTML = cards;
+        statusEl.textContent = '';
+      })
+      .catch(() => {
+        statusEl.textContent = '날씨 정보를 불러오지 못했습니다. 페이지를 새로고침해 보세요.';
+      });
+  })();
+</script>
+
+</body>
+</html>
