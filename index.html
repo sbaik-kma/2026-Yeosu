@@ -109,6 +109,32 @@
     border-radius:var(--radius);padding:24px;text-align:center;
   }
 
+  /* 선택 옵션 (볼거리/체험/먹거리) */
+  .cat-tabs{display:flex;gap:8px;margin-bottom:18px;}
+  .cat-tab{
+    flex:1;font-family:var(--display);font-weight:400;font-size:15px;
+    background:var(--white);color:var(--ink-soft);border:1px solid var(--line);
+    padding:10px 8px;border-radius:999px;cursor:pointer;transition:transform .15s ease;
+  }
+  .cat-tab.active{background:var(--forest);color:var(--paper);border-color:var(--forest);transform:scale(1.04);}
+  .cat-panel{display:none;flex-direction:column;gap:12px;}
+  .cat-panel.active{display:flex;}
+  .option-card{
+    background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
+    padding:16px 18px;display:flex;flex-direction:column;gap:8px;
+  }
+  .option-top{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+  .option-name{font-family:var(--display);font-weight:400;font-size:17px;margin:0;}
+  .option-menu{font-family:var(--sans);font-weight:400;font-size:12.5px;color:var(--ink-soft);margin-left:8px;}
+  .option-desc{font-size:13px;color:var(--ink-soft);margin:0;line-height:1.5;}
+  .weather-tag{
+    flex:0 0 auto;font-size:11.5px;font-weight:700;padding:4px 10px;border-radius:999px;white-space:nowrap;
+  }
+  .weather-tag.rain{background:rgba(44,110,142,.12);color:var(--lake);}
+  .weather-tag.sun{background:rgba(255,183,3,.18);color:#96690a;}
+  .weather-tag.cloud{background:rgba(92,107,95,.12);color:var(--ink-soft);}
+  .weather-tag.pick{background:rgba(199,154,70,.2);color:#96690a;}
+
   /* 날씨 */
   .weather-row{
     display:flex;overflow-x:auto;gap:10px;margin-top:18px;padding-bottom:6px;
@@ -253,34 +279,9 @@
   </div>
 </header>
 
-<section class="section wrap" id="transit">
-  <div class="section-head">
-    <span class="section-num">01</span>
-    <div>
-      <h2 class="section-title">🚄 교통편</h2>
-      <p class="section-sub">KTX</p>
-    </div>
-  </div>
-
-  <div class="transit-grid">
-    <div class="transit-card">
-      <span class="transit-tag">가는 편 · 07.21 (화)</span>
-      <div class="transit-route">용산 <span class="arrow">→</span> 여수EXPO</div>
-      <div class="transit-time">08:40 출발 <b>→</b> 11:47 도착 <span style="color:var(--ink-soft);">(약 3시간 7분)</span></div>
-      <span class="transit-train">KTX 505</span>
-    </div>
-    <div class="transit-card">
-      <span class="transit-tag">오는 편 · 07.24 (금)</span>
-      <div class="transit-route">여수EXPO <span class="arrow">→</span> 용산</div>
-      <div class="transit-time">13:03 출발 <b>→</b> 16:01 도착 <span style="color:var(--ink-soft);">(약 2시간 58분)</span></div>
-      <span class="transit-train">KTX 512</span>
-    </div>
-  </div>
-</section>
-
 <section class="section wrap" id="stay">
   <div class="section-head">
-    <span class="section-num">02</span>
+    <span class="section-num">01</span>
     <div>
       <h2 class="section-title">🏨 숙소</h2>
     </div>
@@ -296,7 +297,7 @@
 
 <section class="section wrap" id="sched">
   <div class="section-head">
-    <span class="section-num">03</span>
+    <span class="section-num">02</span>
     <div>
       <h2 class="section-title">🗓️ 세부 일정</h2>
       <p class="section-sub">날짜를 눌러 확인하세요 · 아직 일정 확정 전입니다</p>
@@ -311,7 +312,31 @@
   </div>
 
   <div class="day-panel active" id="d1">
-    <div class="empty-note">07.21 (화) 일정은 아직 준비 중입니다.<br>세부 일정을 주시면 채워드릴게요.</div>
+    <div class="transit-card">
+      <span class="transit-tag">가는 편 · 07.21 (화)</span>
+      <div class="transit-route">용산 <span class="arrow">→</span> 여수EXPO</div>
+      <div class="transit-time">08:40 출발 <b>→</b> 11:47 도착 <span style="color:var(--ink-soft);">(약 3시간 7분)</span></div>
+      <span class="transit-train">KTX 505</span>
+    </div>
+    <div class="option-card">
+      <div class="option-top"><p class="option-name">베네치아 호텔 체크인</p><span class="weather-tag cloud">🏨 12:00</span></div>
+      <a class="stay-link" href="https://naver.me/GWe2FgJZ" target="_top">📍 네이버 지도에서 보기</a>
+    </div>
+    <div class="option-card">
+      <div class="option-top"><p class="option-name">숙이네 밥상<span class="option-menu">보리밥 정식 · 백반정식</span></p><span class="weather-tag pick">🍚 점심</span></div>
+      <a class="stay-link" href="https://naver.me/xktqRVgE" target="_top">📍 네이버 지도에서 보기</a>
+    </div>
+    <div class="option-card">
+      <div class="option-top"><p class="option-name">자유시간</p><span class="weather-tag cloud">🕒 13:00~16:00</span></div>
+    </div>
+    <div class="option-card">
+      <div class="option-top"><p class="option-name">짱조아마차<span class="option-menu">모둠선어회</span></p><span class="weather-tag pick">🌙 저녁</span></div>
+      <a class="stay-link" href="https://naver.me/5l7kS9nw" target="_top">📍 네이버 지도에서 보기</a>
+    </div>
+    <div class="option-card">
+      <div class="option-top"><p class="option-name">여수 오션크루즈</p><span class="weather-tag cloud">🌇 19:20</span></div>
+      <a class="stay-link" href="https://naver.me/5Fm1ic9s" target="_top">📍 네이버 지도에서 보기</a>
+    </div>
   </div>
   <div class="day-panel" id="d2">
     <div class="empty-note">07.22 (수) 일정은 아직 준비 중입니다.</div>
@@ -320,7 +345,117 @@
     <div class="empty-note">07.23 (목) 일정은 아직 준비 중입니다.</div>
   </div>
   <div class="day-panel" id="d4">
-    <div class="empty-note">07.24 (금) 일정은 아직 준비 중입니다.<br>13:03 KTX 512로 용산 복귀 예정입니다.</div>
+    <div class="empty-note">07.24 (금) 오전~오후 일정은 아직 준비 중입니다.</div>
+    <div class="transit-card">
+      <span class="transit-tag">오는 편 · 07.24 (금)</span>
+      <div class="transit-route">여수EXPO <span class="arrow">→</span> 용산</div>
+      <div class="transit-time">13:03 출발 <b>→</b> 16:01 도착 <span style="color:var(--ink-soft);">(약 2시간 58분)</span></div>
+      <span class="transit-train">KTX 512</span>
+    </div>
+  </div>
+</section>
+
+<section class="section wrap" id="options">
+  <div class="section-head">
+    <span class="section-num">03</span>
+    <div>
+      <h2 class="section-title">🎒 선택 옵션</h2>
+      <p class="section-sub">날씨 보고 당일·전날 골라서 세부 일정에 채워 넣을 후보들 · ☀️맑을 때 · ☔비올 때도 OK</p>
+    </div>
+  </div>
+
+  <div class="cat-tabs">
+    <button class="cat-tab active" data-cat="sight">👀 볼거리·체험</button>
+    <button class="cat-tab" data-cat="food">🍽️ 먹거리</button>
+  </div>
+
+  <div class="cat-panel active" id="cat-sight">
+    <div class="option-card">
+      <div class="option-top"><p class="option-name">아르떼뮤지엄 여수</p><span class="weather-tag rain">☔ 실내</span></div>
+      <p class="option-desc">여수엑스포 국제관 안 대형 미디어아트 전시관. 비 오는 날 대안으로 딱 좋아요.</p>
+    </div>
+    <div class="option-card">
+      <div class="option-top"><p class="option-name">아쿠아플라넷 여수</p><span class="weather-tag rain">☔ 실내</span></div>
+      <p class="option-desc">대형 아쿠아리움. 비 오는 날에도 아이들과 온종일 즐길 수 있어요.</p>
+      <a class="stay-link" href="https://naver.me/Fuz5LsQF" target="_top">📍 네이버 지도에서 보기</a>
+    </div>
+    <div class="option-card">
+      <div class="option-top"><p class="option-name">국립여수해양기상과학관</p><span class="weather-tag rain">☔ 실내</span></div>
+      <p class="option-desc">바다·기상을 주제로 한 체험형 과학관. 비 오는 날 아이들과 가기 좋아요.</p>
+      <a class="stay-link" href="https://naver.me/5apDLpN8" target="_top">📍 네이버 지도에서 보기</a>
+    </div>
+    <div class="option-card">
+      <div class="option-top"><p class="option-name">오동도</p><span class="weather-tag sun">☀️ 실외</span></div>
+      <p class="option-desc">방파제 산책로로 이어지는 여수 대표 섬. 동백숲과 등대가 있어요.</p>
+      <a class="stay-link" href="https://naver.me/Fuz5ZuR5" target="_top">📍 네이버 지도에서 보기</a>
+    </div>
+    <div class="option-card">
+      <div class="option-top"><p class="option-name">여수 해상케이블카</p><span class="weather-tag cloud">⛅ 날씨영향</span></div>
+      <p class="option-desc">돌산공원과 자산공원을 바다 위로 잇는 케이블카. 강풍·폭우 시 운행이 중단될 수 있어요.</p>
+      <a class="stay-link" href="https://naver.me/Fuz5Mtnb" target="_top">📍 네이버 지도에서 보기</a>
+    </div>
+    <div class="option-card">
+      <div class="option-top"><p class="option-name">순천만공원</p><span class="weather-tag cloud">⛅ 주/야간 선택</span></div>
+      <p class="option-desc">갈대밭과 습지 정원으로 유명한 생태공원. 낮과 야간(빛축제 등) 분위기가 달라 골라 갈 수 있어요.</p>
+      <a class="stay-link" href="https://naver.me/F0z2cXTG" target="_top">📍 네이버 지도에서 보기</a>
+    </div>
+    <div class="option-card">
+      <div class="option-top"><p class="option-name">여수 스카이타워 전망대</p><span class="weather-tag cloud">⛅ 실내+실외</span></div>
+      <p class="option-desc">옛 시멘트 사일로를 개조한 파이프 오르간 전망대. 전망대 내부는 실내예요.</p>
+      <a class="stay-link" href="https://naver.me/5gFJ9P6z" target="_top">📍 네이버 지도에서 보기</a>
+    </div>
+    <div class="option-card">
+      <div class="option-top"><p class="option-name">이순신광장</p><span class="weather-tag sun">☀️ 실외</span></div>
+      <p class="option-desc">거북선 모형과 이순신 장군 동상이 있는 여수 대표 역사 광장.</p>
+      <a class="stay-link" href="https://naver.me/FpxlUjVN" target="_top">📍 네이버 지도에서 보기</a>
+    </div>
+  </div>
+
+  <div class="cat-panel" id="cat-food">
+    <div class="option-card">
+      <div class="option-top"><p class="option-name">숙이네 밥상<span class="option-menu">보리밥 정식 · 백반정식</span></p><span class="weather-tag pick">🍚 1차 점심</span></div>
+      <a class="stay-link" href="https://naver.me/xktqRVgE" target="_top">📍 네이버 지도에서 보기</a>
+    </div>
+    <div class="option-card">
+      <div class="option-top"><p class="option-name">짱조아마차<span class="option-menu">모둠선어회</span></p><span class="weather-tag pick">🌙 1차 저녁</span></div>
+      <a class="stay-link" href="https://naver.me/5l7kS9nw" target="_top">📍 네이버 지도에서 보기</a>
+    </div>
+    <div class="option-card">
+      <div class="option-top"><p class="option-name">화물식당<span class="option-menu">아구찜 · 갈치조림</span></p><span class="weather-tag rain">☔ 실내</span></div>
+      <a class="stay-link" href="https://naver.me/GubwQnnl" target="_top">📍 네이버 지도에서 보기</a>
+    </div>
+    <div class="option-card">
+      <div class="option-top"><p class="option-name">동백분식<span class="option-menu">꼬막비빔국수</span></p><span class="weather-tag rain">☔ 실내</span></div>
+      <a class="stay-link" href="https://naver.me/G7CB8WHR" target="_top">📍 네이버 지도에서 보기</a>
+    </div>
+    <div class="option-card">
+      <div class="option-top"><p class="option-name">장수식당<span class="option-menu">게장백반 · 서대회무침</span></p><span class="weather-tag rain">☔ 실내</span></div>
+      <a class="stay-link" href="https://naver.me/xhzfDDjS" target="_top">📍 네이버 지도에서 보기</a>
+    </div>
+    <div class="option-card">
+      <div class="option-top"><p class="option-name">덕충식당<span class="option-menu">백반 · 서대회</span></p><span class="weather-tag rain">☔ 실내</span></div>
+      <a class="stay-link" href="https://naver.me/GrmCjS29" target="_top">📍 네이버 지도에서 보기</a>
+    </div>
+    <div class="option-card">
+      <div class="option-top"><p class="option-name">여수당제빵소<span class="option-menu">쑥소보로 · 쑥카스테라</span></p><span class="weather-tag rain">☔ 실내</span></div>
+      <a class="stay-link" href="https://naver.me/GKU2neSc" target="_top">📍 네이버 지도에서 보기</a>
+    </div>
+    <div class="option-card">
+      <div class="option-top"><p class="option-name">백천선어마을<span class="option-menu">선어회 · 간장게장</span></p><span class="weather-tag rain">☔ 실내</span></div>
+      <a class="stay-link" href="https://naver.me/5UEJ8ys4" target="_top">📍 네이버 지도에서 보기</a>
+    </div>
+    <div class="option-card">
+      <div class="option-top"><p class="option-name">공화동 우무집<span class="option-menu">콩국수(우무)</span></p><span class="weather-tag rain">☔ 실내</span></div>
+      <a class="stay-link" href="https://naver.me/5ZJgdl9Y" target="_top">📍 네이버 지도에서 보기</a>
+    </div>
+    <div class="option-card">
+      <div class="option-top"><p class="option-name">이순신 수제버거<span class="option-menu">이순신버거 · 베토치버거</span></p><span class="weather-tag rain">☔ 실내</span></div>
+      <a class="stay-link" href="https://naver.me/xs3G1VRe" target="_top">📍 네이버 지도에서 보기</a>
+    </div>
+    <div class="option-card">
+      <div class="option-top"><p class="option-name">라또아<span class="option-menu">흑임자 크림라떼 · 크림파스타</span></p><span class="weather-tag cloud">⛅ 실내(루프탑 있음)</span></div>
+      <a class="stay-link" href="https://naver.me/xucpsB0I" target="_top">📍 네이버 지도에서 보기</a>
+    </div>
   </div>
 </section>
 
@@ -349,6 +484,16 @@
       document.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
       btn.classList.add('active');
       document.getElementById(btn.dataset.day).classList.add('active');
+    });
+  });
+
+  // 선택 옵션 카테고리 탭 전환
+  document.querySelectorAll('.cat-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.cat-tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.cat-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('cat-' + btn.dataset.cat).classList.add('active');
     });
   });
 
